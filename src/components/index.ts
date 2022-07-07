@@ -1,6 +1,6 @@
 import { createApp, App } from 'vue'
-import { Button, Tabbar, TabbarItem } from 'vant'
-const globalComponent = [Button, Tabbar, TabbarItem]
+import { Button, Tabbar, TabbarItem, Toast } from 'vant'
+const globalComponent = [Button, Tabbar, TabbarItem, Toast]
 
 /**
  * 注册全局组件
