@@ -281,3 +281,55 @@ module.exports = {
   arrowParens: 'always'
 };
 ```
+
+## 配置 husky + lint-staged
+
+- 使用 husky + lint-staged 助力团队编码规范，husky&lint-staged 安装推荐使用 mrm，它将根据 package.json 依赖项中的代码质量工具来安装和配置 husky 和 lint-staged，因此请确保在此之前安装并配置所有代码质量工具，如 Prettier 和 ESlint
+
+```shell
+npm i mrm -D --registry=https://registry.npm.taobao.org
+```
+
+- husky 是一个为 git 客户端增加 hook 的工具；安装后，它会自动在仓库中的 .git/ 目录下增加相应的钩子；比如 pre-commit 钩子就会在你执行 git commit 的触发
+
+- 那么我们可以在 pre-commit 中实现一些比如 lint 检查、单元测试、代码美化等操作；当然，pre-commit 阶段执行的命令当然要保证其速度不要太慢，每次 commit 都等很久也不是什么好的体验
+
+- lint-staged，一个仅仅过滤出 Git 代码暂存区文件(被 git add 的文件)的工具；这个很实用，因为我们如果对整个项目的代码做一个检查，可能耗时很长，如果是老项目，要对之前的代码做一个代码规范检查并修改的话，这可能就麻烦了呀，可能导致项目改动很大
+
+- 所以这个 lint-staged，对团队项目和开源项目来说，是一个很好的工具，它是对个人要提交的代码的一个规范和约束
+
+### 安装 lint-staged
+
+- mrm 安装 lint-staged 会自动把 husky 一起安装下来
+
+```shell
+npx mrm lint-staged
+```
+
+- 安装成功后会发现 package.json 会增加以下配置
+
+```json
+{
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,vue,js,jsx}": "eslint --cache --fix"
+  }
+}
+```
+
+- 我们要结合 prettier 代码格式化，所以修改一下配置
+
+```json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": ["eslint --fix", "prettier --write", "git add"]
+  }
+}
+```
