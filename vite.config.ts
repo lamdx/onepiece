@@ -17,7 +17,24 @@ export default defineConfig({
   ],
   server: {
     // 在开发环境下启动时自动在浏览器中打开应用程序
-    open: true
+    open: true,
+    proxy: {
+      // 选项写法
+      '/vvhan': {
+        target: 'https://api.vvhan.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/vvhan/, '')
+      },
+      '/uomg': {
+        target: 'https://api.uomg.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/uomg/, '')
+      },
+      '/ajax/side/hotSearch': {
+        target: 'https://weibo.com',
+        changeOrigin: true
+      }
+    }
   },
   resolve: {
     // 配置路径别名
