@@ -333,3 +333,28 @@ npx mrm lint-staged
   }
 }
 ```
+
+## vant
+
+- Vue 3 项目，安装最新版 Vant
+
+```shell
+npm i vant
+```
+
+### 按需引入组件（推荐）
+
+```js
+import vue from '@vitejs/plugin-vue';
+import Components from 'unplugin-vue-components/vite';
+import { VantResolver } from 'unplugin-vue-components/resolvers';
+
+export default {
+  plugins: [
+    vue(),
+    Components({
+      resolvers: [VantResolver()]
+    })
+  ]
+};
+```
