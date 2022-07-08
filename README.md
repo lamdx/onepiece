@@ -15,6 +15,10 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
 
+## vue3.x & typeScript & vite
+
+- [xushanpei/vite_vue3_ts: `vue3.x`，`typeScript`， `vite` 搭建一套企业级的开发脚手架 🤖](https://github.com/xushanpei/vite_vue3_ts)
+
 ## 创建版本库
 
 - 选择一个合适的地方创建一个空目录
@@ -26,7 +30,7 @@ git init
 
 ## 搭建第一个 Vite 项目
 
-- [开始 {#getting-started} | Vite 中文网](https://vitejs.cn/guide/#scaffolding-your-first-vite-project)
+- [Vite 中文网](https://vitejs.cn/guide/#scaffolding-your-first-vite-project)
 
 > Vite 需要 Node.js 版本 >= 12.0.0
 
@@ -48,23 +52,24 @@ npm i prettier eslint-config-prettier -D
 
 ```shell
 # 安装 eslint
-npm i eslint --dev
+npm i eslint --save-dev
 # 安装 eslint 插件
-npm i eslint-plugin-vue --dev
+npm i eslint-plugin-vue --save-dev
 
-npm i @typescript-eslint/eslint-plugin --dev
+npm i @typescript-eslint/eslint-plugin --save-dev
 
-npm i eslint-plugin-prettier --dev
+# eslint-plugin-prettier 使用 prettier 代替 eslint 格式化
+npm i eslint-plugin-prettier --save-dev
 
 # typescript parser
-npm i @typescript-eslint/parser --dev
+npm i @typescript-eslint/parser --save-dev
 
 # 安装 prettier
-npm i prettier --dev
+npm i prettier --save-dev
 
 # 解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效
-# 安装插件 eslint-config-prettier
-npm i eslint-config-prettier --dev
+# 安装插件 eslint-config-prettier，关闭可能与 prettier 冲突的规则
+npm i eslint-config-prettier --save-dev
 ```
 
 ### 项目下新建 .eslintrc.js
@@ -118,9 +123,9 @@ module.exports = {
       {
         semi: false,
         singleQuote: true,
+        trailingComma: 'none',
         arrowParens: 'avoid',
-        bracketSpacing: true,
-        trailingComma: 'none'
+        bracketSpacing: true
       },
       {
         usePrettierrc: false
@@ -357,4 +362,99 @@ export default {
     })
   ]
 };
+```
+
+## router
+
+```shell
+npm i vue-router
+```
+
+### vite.config.js 配置别名路径
+
+```js
+import { defineConfig } from 'vite';
+const path = require('path');
+defineConfig({
+  resolve: {
+    // 配置路径别名
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  }
+});
+```
+
+```shell
+# Cannot find name 'require'. Do you need to install type definitions for node
+npm install @types/node --save-dev
+```
+
+- 然后在 tsconfig.json 中添加配置 types
+
+```json
+{
+  "types": ["node"]
+}
+```
+
+## axios
+
+```shell
+npm i axios
+```
+
+### tsconfig.json 配置别名路径
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+## pinia
+
+```shell
+npm i pinia
+```
+
+## less
+
+- 虽然 vite 原生支持 less/sass/scss/stylus，但是你必须手动安装他们的预处理器依赖
+
+```shell
+npm i less -D
+```
+
+```shell
+npm i clipboard
+```
+
+## vconsole
+
+```js
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { viteVConsole } from 'vite-plugin-vconsole';
+const path = require('path');
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    viteVConsole({
+      entry: path.resolve('src/main.ts'), // 或者可以使用这个配置: [path.resolve('src/main.ts')]
+      localEnabled: true, // 本地开启
+      enabled: false, // 生产关闭
+      config: {
+        maxLogNumber: 1000,
+        theme: 'dark'
+      }
+    })
+  ]
+});
 ```
