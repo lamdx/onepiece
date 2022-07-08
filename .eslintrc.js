@@ -44,9 +44,9 @@ module.exports = {
       {
         semi: false,
         singleQuote: true,
+        trailingComma: 'none',
         arrowParens: 'avoid',
-        bracketSpacing: true,
-        trailingComma: 'none'
+        bracketSpacing: true
       },
       {
         usePrettierrc: false

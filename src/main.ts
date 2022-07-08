@@ -6,6 +6,8 @@ import { registeGlobalComponent } from './components/index'
 import router from './router'
 import { createPinia } from 'pinia'
 
+import './assets/styles/index.css'
+
 const app = createApp(App)
 console.log('app ===', app)
 

@@ -5,14 +5,14 @@ module.exports = {
   printWidth: 100,
   semi: false,
   singleQuote: true,
-  trailingComma: 'none',
+  trailingComma: "none",
   overrides: [
     {
-      files: '*.json',
+      files: "*.json",
       options: {
-        printWidth: 200
-      }
-    }
+        printWidth: 200,
+      },
+    },
   ],
-  arrowParens: 'always'
-}
+  arrowParens: "always",
+};

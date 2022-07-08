@@ -13,6 +13,10 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Tinytyper: typeof import('./src/components/Tinytyper/index.vue')['default']
     VanButton: typeof import('vant/es')['Button']
+    VanCard: typeof import('vant/es')['Card']
+    VanImage: typeof import('vant/es')['Image']
+    VanLoading: typeof import('vant/es')['Loading']
+    VanNoticeBar: typeof import('vant/es')['NoticeBar']
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
   }

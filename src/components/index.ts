@@ -1,6 +1,24 @@
 import { createApp, App } from 'vue'
-import { Button, Tabbar, TabbarItem, Toast } from 'vant'
-const globalComponent = [Button, Tabbar, TabbarItem, Toast]
+import {
+  Icon,
+  Button,
+  Tabbar,
+  TabbarItem,
+  NoticeBar,
+  Image as VanImage,
+  Lazyload,
+  Card
+} from 'vant'
+const globalComponent = [
+  Icon,
+  Button,
+  Tabbar,
+  TabbarItem,
+  NoticeBar,
+  VanImage,
+  Lazyload,
+  Card
+]
 
 /**
  * 注册全局组件
