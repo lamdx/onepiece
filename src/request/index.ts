@@ -6,13 +6,11 @@ interface RequestConfig extends AxiosRequestConfig {
   loading?: boolean
   NO_GLOBAL_MSG?: boolean
 }
-interface ResponseConf extends AxiosResponse {
-  loading?: boolean
-  NO_GLOBAL_MSG?: boolean
+interface Response extends AxiosResponse {
+  config: RequestConfig
 }
-interface ErrorConf extends AxiosError {
-  loading?: boolean
-  NO_GLOBAL_MSG?: boolean
+interface Error extends AxiosError {
+  config: RequestConfig
 }
 
 /**
@@ -117,11 +115,11 @@ service.interceptors.request.use((config: RequestConfig) => {
 service.interceptors.response.use(
   // Any status code that lie within the range of 2xx cause this function to trigger
   // 在2xx范围内的任何状态代码都会触发此函数，这里主要用于处理响应数据
-  (response: ResponseConf) => {
+  (response: Response) => {
     // response = { config: {}, data: {}, headers: {}, request: {}, status: 200, statusText: 'ok' };
-    // if (response.config && response.config.loading) {
-    //   // Spin.hide();
-    // }
+    if (response.config?.loading) {
+      // Spin.hide();
+    }
     const res = response.data
     if (!res) {
       alert('响应报文未返回数据')
@@ -142,17 +140,19 @@ service.interceptors.response.use(
       return Promise.reject(res)
     }
     // 如果与后端约定好状态码 errorCode，需要在业务逻辑中处理，不需要 http 中拦截报错，则需要请求时配置 NO_GLOBAL_MSG
-    // if (!response.config?.NO_GLOBAL_MSG) {
-    //   alert(res.errorMsg || res.errorCode);
-    //   return Promise.reject(res);
-    // }
+    if (!response.config.NO_GLOBAL_MSG) {
+      alert(res.errorMsg || res.errorCode)
+      return Promise.reject(res)
+    }
   },
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // 任何超出2xx范围的状态代码都会触发此函数
-  (error: ErrorConf) => {
-    // error = { data, status, statusText, headers, config, baseURL }
+  (error: Error) => {
+    console.log('123123123 ===', 123123123)
 
-    const status = error?.response?.status
+    // error = { data, status, statusText, headers, config, baseURL }
+    // Spin.hide();
+    const status = error.response?.status
     const statusMap: { [key: number]: string } = {
       400: '400 Bad Request',
       401: 'login Timeout',
@@ -163,9 +163,9 @@ service.interceptors.response.use(
       504: '504 Gateway Timeout'
     }
     const msg = status ? statusMap[status] : '网络请求异常！'
-    // if (!error.config?.NO_GLOBAL_MSG) {
-    //   alert(msg);
-    // }
+    if (!error.config.NO_GLOBAL_MSG) {
+      alert(msg)
+    }
     // 抛出错误，才不会执行后续代码
     return Promise.reject(error)
 
