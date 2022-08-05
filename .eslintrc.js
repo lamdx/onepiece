@@ -5,6 +5,7 @@ module.exports = {
     node: true,
     es2021: true
   },
+  // 新增，解析 vue 文件
   parser: 'vue-eslint-parser',
   extends: [
     'eslint:recommended',
@@ -14,10 +15,12 @@ module.exports = {
     // eslint-config-prettier 的缩写
     'prettier'
   ],
+  // 两个 parser 的区别在于，外面的 parser 用来解析 vue 文件，使得 eslint 能解析 template 标签中的内容，而 parserOptions 中的 parser，即 @typescript-eslint/parser 用来解析 vue 文件中 script 标签中的代码
   parserOptions: {
     ecmaVersion: 12,
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
+    // ecmaFeatures 使用哪些其他语言功能
     ecmaFeatures: {
       jsx: true
     }
@@ -37,6 +40,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
+    // https://prettier.io/docs/en/options.html
     // prettier
     // "prettier/prettier": "error",
     'prettier/prettier': [
@@ -164,7 +168,7 @@ module.exports = {
     'no-case-declarations': 'warn',
     'no-async-promise-executor': 'warn',
 
-    // vue 组件相关配置  https://eslint.vuejs.org/rules/
+    // vue 组件相关配置 https://eslint.vuejs.org/rules/
     // 要求组件名称始终为多字
     'vue/multi-word-component-names': 'off'
   },
