@@ -21,20 +21,10 @@
     <span>{{ item.word }}</span>
     <span class="icon" v-if="item.icon_desc">{{ item.icon_desc }}</span>
   </p> -->
-  <div class="header">搞笑</div>
-  <van-card
-    v-for="({ title, desc, mobilUrl, pic }, i) in jokeList"
-    :key="i"
-    :desc="desc"
-    :title="title"
-    :thumb="pic"
-    @click="hrefTo(mobilUrl)"
-  >
-  </van-card>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import { getWeiboHot, getJokeList } from '@/api'
+import { getWeiboHot } from '@/api'
 import { getItem, setItem } from '@/utils/storage'
 // interface Obj {
 //   [key: string | symbol]: any;
@@ -65,11 +55,6 @@ if (diff > wait || !cacheRealtimeList.length) {
     realtime.value = list
   })
 }
-const jokeList = ref([])
-getJokeList().then(res => {
-  console.log('res ===', res)
-  jokeList.value = res.data
-})
 
 const hrefTo = (url: string) => {
   window.location.href = url

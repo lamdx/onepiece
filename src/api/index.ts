@@ -32,51 +32,23 @@ const uomgBaseURL = import.meta.env.DEV
   ? 'http://localhost:3000/uomg'
   : 'https://api.uomg.com'
 
-export const getwbHotlist = () =>
-  request({
-    url: '/api/hotlist?type=wbHot',
-    method: 'GET',
-    baseURL: vvhanBaseURL
-  })
-
-export const getZhihuhotlist = () =>
-  request({
-    url: '/api/hotlist?type=zhihuHot',
-    method: 'GET',
-    baseURL: vvhanBaseURL
-  })
-
-export const get36Kehotlist = () =>
-  request({
-    url: '/api/hotlist?type=36Ke',
-    method: 'GET',
-    baseURL: vvhanBaseURL
-  })
-
-export const getJokeList = () =>
-  request({
-    url: '/api/hotlist?type=wxJoke',
-    method: 'GET',
-    baseURL: vvhanBaseURL
-  })
-
 export const getWeiboHot = () =>
   request({
-    url: '/api/wbhot',
+    url: '/api/hotlist/wbHot',
     method: 'GET',
     baseURL: vvhanBaseURL
   })
 
 export const getLove = () =>
   request({
-    url: '/api/love',
+    url: '/api/text/love',
     method: 'GET',
     baseURL: vvhanBaseURL
   })
 
 export const getSao = () =>
   request({
-    url: '/api/sao',
+    url: '/api/text/sexy',
     method: 'GET',
     baseURL: vvhanBaseURL
   })

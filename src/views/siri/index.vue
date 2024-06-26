@@ -28,7 +28,7 @@
 import Clipboard from 'clipboard'
 import { ref } from 'vue'
 import { Toast } from 'vant'
-import { getLove, getQinghua } from '@/api'
+import { getLove, getSao } from '@/api'
 const loveText = ref('')
 const sweetText = ref('')
 const isShow = ref(false)
@@ -39,9 +39,9 @@ getLove().then(res => {
   loveText.value = res
 })
 
-getQinghua().then(res => {
+getSao().then(res => {
   console.log('res ===', res)
-  sweetText.value = res.content
+  sweetText.value = res
 })
 
 const next = () => {
